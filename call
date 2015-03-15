@@ -1,0 +1,98 @@
+#include <SoftwareSerial.h>
+#include "SIM900.h"
+
+char inchar;
+int onoff =1;
+void setup() {
+  // put your setup code here, to run once:
+pinMode(12, OUTPUT);
+pinMode(13, OUTPUT); // LEDs - off = red, on = green
+digitalWrite(12, LOW);
+digitalWrite(13, HIGH);
+
+Serial.begin(19200);
+delay(2000); // give time to log on to network.
+Serial.print("AT+CLIP=1\r"); // turn on caller ID notification
+delay(100);
+}
+
+void doSomething()
+{
+if (onoff==0)
+{
+onoff=1;
+digitalWrite(12, LOW);
+digitalWrite(13, HIGH);
+Serial.println("D12 high D13 low");
+} 
+else
+if (onoff==1)
+{
+onoff=0;
+digitalWrite(12, HIGH);
+digitalWrite(13, LOW);
+Serial.println("D12 low D13 high");
+}
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+if(Serial.available() >0)
+{
+inchar=Serial.read(); 
+if (inchar=='0')
+{
+delay(10);
+inchar=Serial.read(); 
+if (inchar=='8')
+{
+delay(10);
+inchar=Serial.read(); 
+if (inchar=='8')
+{
+delay(10);
+inchar=Serial.read(); 
+if (inchar=='8')
+{
+delay(10);
+inchar=Serial.read(); 
+if (inchar=='2')
+{
+delay(10);
+inchar=Serial.read(); 
+if (inchar=='7')
+{
+delay(10);
+inchar=Serial.read();
+if (inchar=='6')
+{
+delay(10);
+inchar=Serial.read(); 
+if (inchar=='6')
+{
+delay(10);
+inchar=Serial.read();
+if (inchar=='6')
+{
+delay(10);
+inchar=Serial.read();
+if (inchar=='4')
+{
+Serial.println("do sometehing");
+delay(10);
+// now the number is matched, do something
+doSomething();
+// arbitrary delay so the function isn't called again on the same phone call
+delay(6000);
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
